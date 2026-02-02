@@ -1,57 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Expense Tracker</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Smart Expense Tracker</h1>
-    </header>
+  <header class="header">
+    <div>
+      <h1>Smart Expense Tracker</h1>
+      <p class="sub">Track, filter, and visualize your spending</p>
+    </div>
+    <button id="theme-toggle" class="btn secondary">Dark Mode</button>
+  </header>
 
-    <section class="expense-form">
-        <h2>Add Expense</h2>
-        <form id="expense-form">
-            <input type="number" id="amount" placeholder="Amount" required>
-            <input type="text" id="description" placeholder="Description" required>
-            <select id="category" required>
-                <option value="">Select Category</option>
-                <option value="Food">Food</option>
-                <option value="Transport">Transport</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Bills">Bills</option>
-                <option value="Other">Other</option>
-            </select>
-            <input type="date" id="date" required>
-            <button type="submit">Add Expense</button>
-        </form>
-    </section>
+  <section class="card">
+    <h2 id="form-title">Add Expense</h2>
+    <form id="expense-form" class="form">
+      <input type="number" id="amount" placeholder="Amount" min="0" step="0.01" required />
+      <input type="text" id="description" placeholder="Description" required />
+      <select id="category" required>
+        <option value="">Select Category</option>
+        <option value="Food">Food</option>
+        <option value="Transport">Transport</option>
+        <option value="Entertainment">Entertainment</option>
+        <option value="Bills">Bills</option>
+        <option value="Other">Other</option>
+      </select>
+      <input type="date" id="date" required />
 
-    <section class="expense-list">
-        <h2>Expenses</h2>
-        <table id="expense-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Amount</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </section>
+      <button type="submit" class="btn primary" id="submit-btn">Add Expense</button>
+      <button type="button" class="btn secondary" id="cancel-edit" style="display:none;">Cancel</button>
+    </form>
+  </section>
 
-    <section class="summary">
-        <h2>Summary</h2>
-        <p>Total Spending: <span id="total-spending">0</span></p>
-        <canvas id="expense-chart"></canvas>
-    </section>
+  <section class="card">
+    <div class="row-between">
+      <h2>Expenses</h2>
+      <div class="filters">
+        <select id="filter-category">
+          <option value="All">All Categories</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Entertainment">Entertainment</option>
+          <option value="Bills">Bills</option>
+          <option value="Other">Other</option>
+        </select>
 
-    <script src="script.js"></script>
+        <input type="date" id="filter-date" />
+        <button id="clear-filters" class="btn secondary">Clear</button>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table id="expense-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th style="width: 170px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <p class="muted" id="empty-text" style="display:none;">No expenses found.</p>
+  </section>
+
+  <section class="card summary">
+    <div class="row-between">
+      <h2>Summary</h2>
+      <button id="export-csv" class="btn secondary">Export to CSV</button>
+    </div>
+
+    <p>Total Spending: <span id="total-spending">₹0.00</span></p>
+    <canvas id="expense-chart"></canvas>
+  </section>
+
+  <script src="script.js"></script>
 </body>
 </html>
